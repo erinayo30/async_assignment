@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Assignment</title>
+<style>
+    body{
+        background-color: beige;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        text-align: center;
+    }
+    input{
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px;
+    }
+    button{
+        padding: 10px;
+        border-radius: 20px;
+        background-color: blue;
+        color: white;
+        font-weight: bold;
+    }
+    button:hover{
+        background-color: coral;
+    }
+</style>
+</head>
+<body>
+    <div>
+        <label for="">Site URL:</label>
+        <input type="text" id="inputURL" placeholder="Input URL here"> <br>
+        <button id="btn">Download</button>
+    </div>
+
+<script>
+
+const inputurl = document.querySelector('input');
+const downloadBtn = document.querySelector("button");
+
+downloadBtn.addEventListener("click", async () =>{
+    try{
+        const response = await fetch(inputurl.value);
+        const file = await response.blob();
+        const link =document.createElement("a");
+     
+    setTimeout(()=>{
+        link.href = URL.createObjectURL(file);
+        link.download = new Date().getTime();
+        link.click();
+        }, 2000)
+    }catch(error){
+        alert("Downloading fail, try again")
+    }
+})
+
+
+</script>
+</body>
+</html>
